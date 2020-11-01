@@ -15,7 +15,8 @@
    which-key
    volatile-highlights
    anzu
-   bm))
+   bm
+   crux))
 
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -253,3 +254,6 @@
 
 ;; Handy key definition
 (global-set-key (kbd "M-p") 'unfill-region)
+
+;; Toggle first-character and first-non-whitespace-character with C-a
+(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)

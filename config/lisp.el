@@ -1,55 +1,57 @@
-(install-package-list
- '(rainbow-delimiters
-   clojure-mode
-   cider
-   hy-mode))
+;; Major language modes
 
-(defun my-lisp ()
-  (smartparens-strict-mode +1)
-  (rainbow-delimiters-mode +1))
+(use-package hy-mode
+  :straight t)
 
-(setq my-lisp-hook 'my-lisp)
+(use-package clojure-mode
+  :straight t)
 
-;; CLOJURE
+;; (defun spit-scad-last-expression ()
+;;   "Spit open-scad code from cider repl into repl.scad."
+;;   (interactive)
+;;   (cider-interactive-eval
+;;    (format
+;;     "(require 'scad-clj.scad)
+;;      (spit \"repl.scad\"
+;;            (scad-clj.scad/write-scad %s))"
+;;     (cider-last-sexp))))
 
-(defun spit-scad-last-expression ()
-  "Spit open-scad code from cider repl into repl.scad."
-  (interactive)
-  (cider-interactive-eval
-   (format
-    "(require 'scad-clj.scad)
-     (spit \"repl.scad\"
-           (scad-clj.scad/write-scad %s))"
-    (cider-last-sexp))))
-
-(with-eval-after-load 'clojure-mode
-  (add-hook 'clojure-mode-hook (lambda ()
-                                 (run-hooks 'my-lisp-hook))))
-
-(with-eval-after-load 'cider
-  (define-key cider-mode-map
-    (kbd "C-x C-g") 'spit-scad-last-expression)
-  (setq nrepl-log-messages t)
+(use-package cider
+  :straight t
+  :custom
+  (nrepl-log-messages t)
+  :bind (:map cider-mode-map
+         ;; ("C-x C-g" . spit-scad-last-expression)
+         ("C-c C-w" . cider-eval-buffer))
+  :config
   (add-hook 'cider-mode-hook 'eldoc-mode)
   (add-hook 'cider-repl-mode-hook
             (lambda ()
-              (run-hooks 'my-lisp-hook)
               ;; interactive modes don't need whitespace checks
               (whitespace-mode -1))))
 
-
-;; EMACS LISP
-
 (defun my-elisp ()
-  (run-hooks 'my-lisp-hook)
   (eldoc-mode +1)
   (setq mode-name "EL"))
 (setq my-elisp-hook 'my-elisp)
-
 (add-hook 'emacs-lisp-mode-hook (lambda () (run-hooks 'my-elisp-hook)))
 (add-hook 'ielm-mode-hook (lambda () (run-hooks 'my-elisp-hook)))
 
 
-;; HY
+;; Extra minor modes
 
-(add-hook 'hy-mode-hook (lambda () (run-hooks 'my-lisp-hook)))
+(use-package smartparens
+  :straight t
+  :hook ((clojure-mode . smartparens-strict-mode)
+         (cider-mode . smartparens-strict-mode)
+         (emacs-lisp-mode . smartparens-strict-mode)
+         (ielm-mode . smartparens-strict-mode)
+         (hy-mode . smartparens-strict-mode)))
+
+(use-package rainbow-delimiters
+  :straight t
+  :hook ((clojure-mode . rainbow-delimiters-mode)
+         (cider-mode . rainbow-delimiters-mode)
+         (emacs-lisp-mode . rainbow-delimiters-mode)
+         (ielm-mode . rainbow-delimiters-mode)
+         (hy-mode . rainbow-delimiters-mode)))

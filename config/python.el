@@ -1,7 +1,3 @@
-(install-package-list
- '(;; anaconda-mode ???
-   ein))
-
 ;; Copy pasted from ruby-mode.el
 (defun python--encoding-comment-required-p ()
   (re-search-forward "[^\0-\177]" nil t))
@@ -44,5 +40,8 @@
 (add-hook 'python-mode-hook
           (lambda ()
             (eldoc-mode 1)
-            ;; (anaconda-mode 1) ???
             (add-hook 'after-save-hook 'python-mode-set-encoding nil 'local)))
+
+
+(use-package ein
+  :straight t)

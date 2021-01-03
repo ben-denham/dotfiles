@@ -1,10 +1,3 @@
-;; TODO:
-;; 1. https://realpython.com/emacs-the-best-python-editor/
-;; 2. Learn how to use imenu + imenu-anywhere? (set-default 'imenu-auto-rescan t)
-;; 3. Flycheck?
-;; 4. Company?
-;; 5. lang-server?
-
 (defvar emacs-dir (file-name-directory load-file-name)
   "The root dir of the Emacs configuration.")
 
@@ -29,44 +22,41 @@
 
 ;; INSTALLING PACKAGES
 
-(require 'package)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;; accessing a package repo over https on Windows is a no go, so we
-;; fallback to http there
-(if (eq system-type 'windows-nt)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
-
-;; activate all the packages (in particular autoloads)
-(package-initialize)
-
-;; fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(defun install-package-list (package-list)
-  (mapc #'(lambda (package)
-    (unless (package-installed-p package)
-      (package-install package)))
-        package-list))
+(straight-use-package 'use-package)
 
 
 ;; GENERAL PACKAGES
 
-(install-package-list
- '(zenburn-theme
-   magit
-   gitconfig-mode
-   gitignore-mode
-   dockerfile-mode))
+(use-package magit
+  :straight t)
+(use-package gitconfig-mode
+  :straight t)
+(use-package gitignore-mode
+  :straight t)
+(use-package dockerfile-mode
+  :straight t)
 
-(require 'zenburn-theme)
 
 ;; CONFIGURATION SECTIONS
 
 (defvar config-dir (expand-file-name "config" emacs-dir))
 
 (load (expand-file-name "general.el" config-dir))
+(load (expand-file-name "theme.el" config-dir))
+(load (expand-file-name "terminal.el" config-dir))
 (load (expand-file-name "ido.el" config-dir))
 (load (expand-file-name "programming.el" config-dir))
 (load (expand-file-name "markup.el" config-dir))

@@ -1,26 +1,19 @@
 ;; General configuration - much taken from prelude
 
-(install-package-list
- '(browse-kill-ring
-   diff-hl
-   editorconfig
-   hl-todo
-   undo-tree
-   smartparens
-   zop-to-char
-   exec-path-from-shell
-   super-save
-   direx
-   popwin
-   which-key
-   volatile-highlights
-   anzu
-   bm
-   crux))
-
+;; Disable tool-bar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
-(menu-bar-mode 1)
+
+;; Enable menu-bar in graphical interface only, and disable in
+;; terminal.
+(when (display-graphic-p)
+  (menu-bar-mode 1))
+(unless (display-graphic-p)
+  (menu-bar-mode -1))
+
+;; No scroll bar (graphical mode only)
+(when (display-graphic-p)
+  (scroll-bar-mode -1))
 
 ;; enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -45,13 +38,6 @@
       '("" invocation-name " - " (:eval (if (buffer-file-name)
                                             (abbreviate-file-name (buffer-file-name))
                                           "%b"))))
-
-;; show available keybindings after you start typing
-(require 'which-key)
-(which-key-mode +1)
-
-(require 'exec-path-from-shell)
-(exec-path-from-shell-initialize)
 
 ;; Death to the tabs!  However, tabs historically indent to the next
 ;; 8-character offset; specifying anything else will cause *mass*
@@ -81,52 +67,14 @@
 ;; revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
 
-;; smart pairing for all
-(require 'smartparens-config)
-(setq sp-base-key-bindings 'paredit)
-(setq sp-autoskip-closing-pair 'always)
-(setq sp-hybrid-kill-entire-symbol nil)
-(sp-use-paredit-bindings)
-(show-smartparens-global-mode +1)
-
 ;; disable annoying blink-matching-paren
 (setq blink-matching-paren nil)
-
-;; meaningful names for buffers with the same name
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t)    ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*") ; don't muck with special buffers
 
 ;; Go to last place in any buffer
 (save-place-mode 1)
 
-;; savehist keeps track of some history
-(require 'savehist)
-(setq savehist-additional-variables
-      ;; search entries
-      '(search-ring regexp-search-ring)
-      ;; save every minute
-      savehist-autosave-interval 60)
-(savehist-mode +1)
-
-;; automatically save buffers associated with files on buffer switch
-;; and on windows switch
-(require 'super-save)
-(super-save-mode +1)
-
 ;; highlight the current line
 (global-hl-line-mode +1)
-
-;; temporarily highlight text affected by certain operations (e.g. yank, undo)
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
-
-;; flyspell-mode does spell-checking on the fly as you type
-(require 'flyspell)
-(setq ispell-program-name "aspell" ; use aspell instead of ispell
-      ispell-extra-args '("--sug-mode=ultra"))
 
 (defun enable-flyspell ()
   "Enable command `flyspell-mode' if spellcheck program can be found."
@@ -141,14 +89,6 @@
 (add-hook 'text-mode-hook 'enable-flyspell)
 (add-hook 'text-mode-hook 'enable-whitespace)
 
-;; bookmarks
-(require 'bookmark)
-(setq bookmark-save-flag 1)
-
-;; anzu-mode enhances isearch & query-replace by showing total matches and current match position
-(require 'anzu)
-(global-anzu-mode)
-
 ;; always delete and copy recursively
 (setq dired-recursive-deletes 'always)
 (setq dired-recursive-copies 'always)
@@ -157,28 +97,8 @@
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
 
-;; whitespace-mode config
-(require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face tabs empty trailing lines-tail))
-
-;; sensible undo
-(global-undo-tree-mode)
-
-;; diff-hl - diff highlighting
-(global-diff-hl-mode +1)
-(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-
-;; use settings from .editorconfig file when present
-(require 'editorconfig)
-(editorconfig-mode 1)
-
 ;; Disable scroll acceleration
 (setq ns-use-mwheel-momentum nil)
-
-;; No scroll bar
-(scroll-bar-mode -1)
 
 ;; Active follow mouse
 (setq mouse-autoselect-window t)
@@ -186,45 +106,169 @@
 ;; save desktop when idle
 (run-with-idle-timer 300 t 'desktop-save-in-desktop-dir)
 
-(require 'popwin)
-(popwin-mode 1)
 
-(require 'direx)
-(require 'direx-project)
-(push '(direx:direx-mode :position left :width 75 :dedicated t)
-      popwin:special-display-config)
-(global-set-key (kbd "C-x C-k") 'direx-project:jump-to-project-root-other-window)
-(global-set-key (kbd "C-x C-j") 'direx:find-directory-other-window)
+;; CONFIGURING STANDARD PACKAGES
+
+;; meaningful names for buffers with the same name
+(use-package uniquify
+  :custom
+  (uniquify-buffer-name-style 'forward)
+  (uniquify-separator "/")
+  (uniquify-after-kill-buffer-p t "rename after killing uniquified")
+  (uniquify-ignore-buffers-re "^\\*" "don't muck with special buffers"))
+
+;; savehist keeps track of some history
+(use-package savehist
+  :custom
+  (savehist-additional-variables '(search-ring regexp-search-ring) "search entries")
+  (savehist-autosave-interval 60 "save every minute")
+  :config
+  (savehist-mode +1))
+
+;; whitespace-mode config
+(use-package whitespace
+  :custom
+  (whitespace-line-column 80 "limit line length")
+  (whitespace-style '(face tabs empty trailing lines-tail)))
+
+;; bookmarks
+(use-package bookmark
+  :custom
+  (bookmark-save-flag 1))
+
+;; flyspell-mode does spell-checking on the fly as you type
+(use-package flyspell
+  :custom
+  (ispell-program-name "aspell" "use aspell instead of ispell")
+  (ispell-extra-args '("--sug-mode=ultra")))
 
 
-;; BOOKMARKS
+;; DOWNLOADED PACKAGES
 
-(require 'bm)
+;; show available keybindings after you start typing
+(use-package which-key
+  :straight t
+  :config
+  (which-key-mode +1))
 
-;; Load bookmarks when starting emacs.
-(setq bm-restore-repository-on-load t)
+(use-package exec-path-from-shell
+  :straight t
+  :config
+  (exec-path-from-shell-initialize))
 
-;; Key-bindings
-(global-set-key (kbd "<C-f9>") 'bm-toggle)
-(global-set-key (kbd "<f9>")   'bm-next)
-(global-set-key (kbd "<f10>")  'bm-previous)
+;; smart pairing for all
+(use-package smartparens
+  :straight t
+  :custom
+  (sp-base-key-bindings 'paredit)
+  (sp-autoskip-closing-pair 'always)
+  (sp-hybrid-kill-entire-symbol nil)
+  :config
+  (require 'smartparens-config)
+  (sp-use-paredit-bindings)
+  (show-smartparens-global-mode +1))
+
+;; Browse cut/copied text.
+(use-package browse-kill-ring
+  :straight t)
+
+;; Highlight TODO keywords
+(use-package hl-todo
+  :straight t)
+
+;; temporarily highlight text affected by certain operations (e.g. yank, undo)
+(use-package volatile-highlights
+  :straight t
+  :config
+  (volatile-highlights-mode t))
+
+;; anzu-mode enhances isearch & query-replace by showing total matches and current match position
+(use-package anzu
+  :straight t
+  :config
+  (global-anzu-mode))
+
+;; sensible undo
+(use-package undo-tree
+  :straight t
+  :config
+  (global-undo-tree-mode))
+
+;; diff-hl - diff highlighting
+(use-package diff-hl
+  :straight t
+  :hook ((dired-mode . diff-hl-dired-mode)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :config
+  (global-diff-hl-mode +1)
+  ;; Show in margin for terminal (no fringe available)
+  (when (display-graphic-p) (diff-hl-margin-mode -1))
+  (unless (display-graphic-p) (diff-hl-margin-mode +1)))
+
+;; use settings from .editorconfig file when present
+(use-package editorconfig
+  :straight t
+  :config
+  (editorconfig-mode +1))
+
+(use-package popwin
+  :straight t
+  :config
+  (popwin-mode 1))
+
+(use-package direx
+  :straight t
+  :bind (("C-x C-k" . direx-project:jump-to-project-root-other-window)
+         ("C-x C-j" . direx:find-directory-other-window))
+  :config
+  (require 'direx-project)
+  (push '(direx:direx-mode :position left :width 75 :dedicated t)
+        popwin:special-display-config))
+
+;; Bookmarks
+(use-package bm
+  :straight t
+  :custom
+  (bm-restore-repository-on-load t "Load bookmarks when starting emacs")
+  :bind (("<C-f9>" . bm-toggle)
+         ("<f9>" . bm-next)
+         ("<f10>" . bm-previous)))
+
+;; Toggle first-character and first-non-whitespace-character with C-a
+(use-package crux
+  :straight t
+  :config
+  (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line))
+
+;; automatically save buffers associated with files on buffer switch
+;; and on windows switch
+;; (use-package super-save
+;;   :straight t
+;;   :config
+;;   (super-save-mode +1))
 
 
-;; KEY BINDINGS
+;; MISC KEY BINDINGS
 
-;; Font size
-(global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
+;; Font size (only for graphical interface)
+(when (display-graphic-p)
+ (global-set-key (kbd "C-+") 'text-scale-increase)
+ (global-set-key (kbd "C--") 'text-scale-decrease))
 
 ;; replace zap-to-char functionality with the more powerful zop-to-char
-(global-set-key (kbd "M-z") 'zop-up-to-char)
-(global-set-key (kbd "M-Z") 'zop-to-char)
+(use-package zop-to-char
+  :straight t
+  :bind (("M-z" . zop-up-to-char)
+         ("M-Z" . zop-to-char)))
 
 ;; replace buffer-menu with ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; toggle menu-bar visibility
 (global-set-key (kbd "<f12>") 'menu-bar-mode)
+
+;; use menu-bar
+(global-set-key (kbd "C-x C-l") 'menu-bar-open)
 
 ;; Comments
 (global-set-key [f3] 'comment-region)
@@ -255,5 +299,10 @@
 ;; Handy key definition
 (global-set-key (kbd "M-p") 'unfill-region)
 
-;; Toggle first-character and first-non-whitespace-character with C-a
-(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
+;; Don't use standard beginning/end commands that set mark.
+(global-set-key (kbd "M-<") '(lambda ()
+                               (interactive)
+                               (goto-char (point-min))))
+(global-set-key (kbd "M->") '(lambda ()
+                               (interactive)
+                               (goto-char (point-max))))

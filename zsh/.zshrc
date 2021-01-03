@@ -153,8 +153,8 @@ select-word-style bash
 setopt noautomenu
 setopt nomenucomplete
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit .p10k.zsh.
+source $ZSH_CONFDIR/.p10k.zsh
 
 # Accept autosuggestions with Ctrl-space
 bindkey '^ ' autosuggest-accept

@@ -5,7 +5,10 @@ Useful environment configuration for various applications.
 
 ## Installation
 
-Run: `./install.sh`
+```
+git clone https://github.com/ben-denham/dotfiles ~/dotfiles
+~/dotfiles/install.sh
+```
 
 
 ## TODO

@@ -158,3 +158,5 @@ source $ZSH_CONFDIR/.p10k.zsh
 
 # Accept autosuggestions with Ctrl-space
 bindkey '^ ' autosuggest-accept
+
+export TMUXINATOR_CONFIG=~/.tmuxinator

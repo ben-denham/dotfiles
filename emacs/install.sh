@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "=== emacs configuration ==="
+
 sudo apt install emacs
 
 if [ -h ~/.emacs.d ]; then

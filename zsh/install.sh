@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "=== zsh configuration ==="
+
 sudo apt install zsh
 
 if [ -h ~/.zshrc ]; then

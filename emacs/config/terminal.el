@@ -2,7 +2,9 @@
 ;; Konsole).
 
 ;; NOTE: After changing key mapping configuration, you must update
-;; Konsole's keymap by following the instructions at:
+;; Konsole's keytab by running
+;; ~/dotfiles/konsole/update-emacs-keytab.sh, or by following the
+;; instructions at:
 ;; https://github.com/CyberShadow/term-keys/blob/master/README.md#konsole
 
 

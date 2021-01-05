@@ -46,7 +46,7 @@
       (term-keys/want-key-p-def key mods)))))
 
 (use-package term-keys
-  :straight '(:host github :repo "CyberShadow/term-keys")
+  :straight (:host github :repo "CyberShadow/term-keys")
   :custom
   (term-keys/want-key-p-func 'konsole-extra-want-key-p)
   :config

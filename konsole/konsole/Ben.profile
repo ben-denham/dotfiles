@@ -19,7 +19,7 @@ KeyBindings=Emacs
 
 [Scrolling]
 HistoryMode=2
-ScrollBarPosition=1
+ScrollBarPosition=2
 
 [Terminal Features]
 BlinkingCursorEnabled=false

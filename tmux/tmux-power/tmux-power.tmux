@@ -27,6 +27,9 @@ session_icon="$(tmux_get '@tmux_power_session_icon' '')"
 user_icon="$(tmux_get '@tmux_power_user_icon' '')"
 time_icon="$(tmux_get '@tmux_power_time_icon' '')"
 date_icon="$(tmux_get '@tmux_power_date_icon' '')"
+cpu_icon="" # ﬙
+ram_icon=""
+gpu_icon=" "
 show_upload_speed="$(tmux_get @tmux_power_show_upload_speed false)"
 show_download_speed="$(tmux_get @tmux_power_show_download_speed false)"
 show_web_reachable="$(tmux_get @tmux_power_show_web_reachable false)"
@@ -102,12 +105,12 @@ tmux_set status-left-bg "$G04"
 tmux_set status-left-fg "G12"
 tmux_set status-left-length 150
 user=$(whoami)
-LS="#[fg=$G04,bg=$TC,bold] $user_icon $user@#h #[fg=$TC,bg=$G06,nobold]$right_arrow_icon#[fg=$TC,bg=$G06] $session_icon #S "
-if "$show_upload_speed"; then
-    LS="$LS#[fg=$G06,bg=$G05]$right_arrow_icon#[fg=$TC,bg=$G05] $upload_speed_icon#{upload_speed} #[fg=$G05,bg=$BG]$right_arrow_icon"
-else
-    LS="$LS#[fg=$G06,bg=$BG]$right_arrow_icon"
-fi
+# Get ip address for default route: https://stackoverflow.com/a/54850832
+ip_address=$(ip route| grep $(ip route | grep default | awk '{ print $5 }') | grep -v "default" | awk '/scope/ { print $9 }')
+LS="#[fg=$G04,bg=$TC,bold] $user_icon $user@#h #[fg=$TC,bg=$G06,nobold]$right_arrow_icon#[fg=$TC,bg=$G06] $ip_address "
+
+LS="$LS#[fg=$G06,bg=$G05]$right_arrow_icon#[fg=$TC,bg=$G05] $session_icon #S #[fg=$G05,bg=$BG]$right_arrow_icon"
+
 if [[ $prefix_highlight_pos == 'L' || $prefix_highlight_pos == 'LR' ]]; then
     LS="$LS#{prefix_highlight}"
 fi
@@ -118,9 +121,9 @@ tmux_set status-right-bg "$G04"
 tmux_set status-right-fg "G12"
 tmux_set status-right-length 150
 RS="#[fg=$TC,bg=$G06] $time_icon %T #[fg=$TC,bg=$G06]$left_arrow_icon#[fg=$G04,bg=$TC] $date_icon %F "
-if "$show_download_speed"; then
-    RS="#[fg=$G05,bg=$BG]$left_arrow_icon#[fg=$TC,bg=$G05] $download_speed_icon#{download_speed} #[fg=$G06,bg=$G05]$left_arrow_icon$RS"
-fi
+
+RS="#[fg=$G05,bg=$BG]$left_arrow_icon#[fg=$TC,bg=$G05] #{cpu_percentage} $cpu_icon | #{ram_percentage} $ram_icon | #{gpu_percentage} $gpu_icon #[fg=$G06,bg=$G05]$left_arrow_icon$RS"
+
 if "$show_web_reachable"; then
     RS=" #{web_reachable_status} $RS"
 fi
@@ -163,4 +166,4 @@ tmux_set message-style "fg=$TC,bg=$BG"
 tmux_set message-command-style "fg=$TC,bg=$BG"
 
 # Copy mode highlight
-tmux_set mode-style "bg=$TC,fg=$FG"
+tmux_set mode-style "bg=$TC,fg=white"

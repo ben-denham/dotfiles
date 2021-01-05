@@ -26,8 +26,8 @@
         (alt (elt mods 5)))
     (and
      ;; Exclude certain keys that work fine, and that we use for
-     ;; shortcuts in the terminal
-     (not (member key '("slash" "space")))
+     ;; shortcuts in the terminal or tmux.
+     (not (member key '("slash" "space" "+" "Up" "Down" "Left" "Right")))
      ;; Exclude shift-only special characters (otherwise
      ;; e.g. shift+backspace will have a special code).
      (not (and shift (not (or ctrl meta super hyper alt))))

@@ -1,5 +1,8 @@
 ;; General configuration - much taken from prelude
 
+;; Font
+(set-frame-font "Hack Nerd Font 11" nil t)
+
 ;; Disable tool-bar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -218,8 +221,8 @@
 
 (use-package direx
   :straight t
-  :bind (("C-x C-k" . direx-project:jump-to-project-root-other-window)
-         ("C-x C-j" . direx:find-directory-other-window))
+  :bind (("C-x C-j" . direx-project:jump-to-project-root-other-window)
+         ("C-x C-h" . direx:find-directory-other-window))
   :config
   (require 'direx-project)
   (push '(direx:direx-mode :position left :width 75 :dedicated t)

@@ -160,3 +160,6 @@ source $ZSH_CONFDIR/.p10k.zsh
 bindkey '^ ' autosuggest-accept
 
 export TMUXINATOR_CONFIG=~/.tmuxinator
+
+# UTF-8 Support
+export LANG=en_NZ.UTF-8

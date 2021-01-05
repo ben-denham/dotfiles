@@ -10,6 +10,3 @@
 [submodule "tmux/tpm"]
 	path = tmux/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "tmux/tmux-power"]
-	path = tmux/tmux-power
-	url = https://github.com/wfxr/tmux-power

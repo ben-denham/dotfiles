@@ -18,6 +18,9 @@
         "<" ">" "?"))
 
 (defun konsole-extra-want-key-p (key mods)
+  ;; NOTE: key names come from the second column of the
+  ;; term-keys/mapping table:
+  ;; https://github.com/CyberShadow/term-keys/blob/master/term-keys.el#L50
   (let ((shift (elt mods 0))
         (ctrl (elt mods 1))
         (meta (elt mods 2))

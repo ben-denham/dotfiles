@@ -19,9 +19,6 @@ keytab.
 
 ## TODO
 
-* tmux + tmuxinator
-  * tmux conf
-  * tpm plugins
 * https://realpython.com/emacs-the-best-python-editor/
 * Flycheck?
 * Company?

@@ -76,4 +76,4 @@
 ;; selection.
 (setq mouse-drag-copy-region t)
 (setq x-select-enable-primary t)
-(setq x-select-enable-clipboard nil)
+(setq x-select-enable-clipboard t)

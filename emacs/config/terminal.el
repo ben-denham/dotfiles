@@ -67,6 +67,8 @@
   :straight t
   :config
   (xclip-mode +1))
+;; Prevent double pasting inside tmux.
+(global-unset-key (kbd "<mouse-2>"))
 ;; Mouse-select in terminal emacs should also copy to primary
 ;; selection.
 (setq mouse-drag-copy-region t)

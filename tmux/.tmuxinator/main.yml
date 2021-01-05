@@ -14,8 +14,9 @@ root: ~/
 # on_project_start: command
 # Run on project start, the first time
 on_project_first_start:
-  - if [ -e ~/.emacs.d/.emacs.desktop.lock ]; then echo Oops, lock file exists; exit 1; fi
-  - if ! pgrep --count -u berend emacs ; then /usr/bin/emacs --daemon; fi
+  - if [ -e ~/.emacs.d/.emacs.desktop.lock ]; then echo "Emacs lock file exists"; exit 1; fi
+  - if ! pgrep --count -u <%= ENV["USER"] %> emacs ; then /usr/bin/emacs --daemon; fi
+  - alias emacs=emacsclient
 # Run on project start, after the first time
 # on_project_restart: command
 # Run on project exit ( detaching from tmux session )
@@ -43,10 +44,11 @@ on_project_stop:
 # attach: false
 
 windows:
-  - main:
-      layout: main-vertical
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
+  - emacs:
+      layout: main-horizontal
       panes:
-        - emacsclient ~/.config/tmuxinator/main.yml
+        - emacs
+  - zsh:
+      layout: main-horizontal
+      panes:
+        - zsh

@@ -255,6 +255,16 @@
   :config
   (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line))
 
+
+(use-package beacon
+  :straight t
+  :config
+  (beacon-mode +1))
+
+(use-package emojify
+  :straight t
+  :hook (after-init . global-emojify-mode))
+
 ;; automatically save buffers associated with files on buffer switch
 ;; and on windows switch
 ;; (use-package super-save

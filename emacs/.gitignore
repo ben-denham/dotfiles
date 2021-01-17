@@ -8,3 +8,5 @@ ido.hist
 places
 transient/
 straight/
+.cache/
+emojis/

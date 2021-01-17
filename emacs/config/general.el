@@ -219,14 +219,26 @@
   :config
   (popwin-mode 1))
 
-(use-package direx
+;; (use-package direx
+;;   :straight t
+;;   :bind (("C-x C-j" . direx-project:jump-to-project-root-other-window)
+;;          ("C-x C-h" . direx:find-directory-other-window))
+;;   :config
+;;   (require 'direx-project)
+;;   (push '(direx:direx-mode :position left :width 75 :dedicated t)
+;;         popwin:special-display-config))
+
+(use-package treemacs
   :straight t
-  :bind (("C-x C-j" . direx-project:jump-to-project-root-other-window)
-         ("C-x C-h" . direx:find-directory-other-window))
-  :config
-  (require 'direx-project)
-  (push '(direx:direx-mode :position left :width 75 :dedicated t)
-        popwin:special-display-config))
+  :bind (("C-x C-j" . treemacs-select-window)
+         ("C-x C-h" . treemacs)
+         ("C-c C-p a" . treemacs-add-project-to-workspace)
+         ("C-c C-p d" . treemacs-remove-project-from-workspace)
+         ("C-c C-p r" . treemacs-rename-project)))
+
+(use-package treemacs-magit
+  :straight t
+  :after treemacs magit)
 
 ;; Bookmarks
 (use-package bm

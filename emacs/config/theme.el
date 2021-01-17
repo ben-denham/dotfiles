@@ -9,3 +9,5 @@
                              :box (:line-width -1 :style released-button)))))
    '(flyspell-duplicate ((t (:foreground "peachpuff1" :underline nil :weight normal :slant italic))))
    '(flyspell-incorrect ((t (:foreground "rosybrown1" :underline nil :weight normal :slant italic))))))
+
+(enable-theme 'zenburn)

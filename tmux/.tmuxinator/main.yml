@@ -16,7 +16,6 @@ root: ~/
 on_project_first_start:
   - if [ -e ~/.emacs.d/.emacs.desktop.lock ]; then echo "Emacs lock file exists"; exit 1; fi
   - if ! pgrep --count -u <%= ENV["USER"] %> emacs ; then /usr/bin/emacs --daemon; fi
-  - alias emacs=emacsclient
 # Run on project start, after the first time
 # on_project_restart: command
 # Run on project exit ( detaching from tmux session )
@@ -51,4 +50,4 @@ windows:
   - zsh:
       layout: main-horizontal
       panes:
-        - zsh
+        - ""

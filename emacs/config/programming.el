@@ -64,3 +64,9 @@
 (use-package octave
   :bind (("C-c C-j" . octave-send-line)
          ("C-c C-k" . octave-send-defun)))
+
+;; SCALA
+
+(use-package scala-mode
+  :straight t
+  :interpreter ("scala" . scala-mode))

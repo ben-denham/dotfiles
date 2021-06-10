@@ -32,11 +32,11 @@
 ;; output to the synthesizer's input (which create sound when you
 ;; play the controller):
 
-;; 1. Find the FluidSynth (or other) synthesizer input port by
+;; 1. Find the output device FluidSynth (or other) synthesizer port by
 ;;    running `aconnect -i` (e.g. "128:0")
-;; 2. Find the controller output port by running `aconnect -o`
+;; 2. Find the input device (controller) port by running `aconnect -o`
 ;;    (e.g. "24:0")
-;; 3. Connect the devices with `aconnect <output-port> <input-port>`
+;; 3. Connect the devices with `aconnect <input-device-port> <output-device-port>`
 ;; 4. Verify the connection with `aconnect -l` and by playing the
 ;;    controller
 
@@ -159,11 +159,11 @@ process and trigger keystroke events."
 
 (defun midi-connect (new-midi-input-port new-midi-output-port)
   ""
-  (interactive (list (read-from-minibuffer "MIDI input port: "
+  (interactive (list (read-from-minibuffer "MIDI input device port: "
                                            nil nil nil nil
                                            (or midi-input-port
                                                default-midi-input-port))
-                     (read-from-minibuffer "MIDI output port: "
+                     (read-from-minibuffer "MIDI output device port: "
                                            nil nil nil nil
                                            (or midi-output-port
                                                default-midi-output-port))))
@@ -194,7 +194,7 @@ process and trigger keystroke events."
     (kill-process "compilation"))
   ;; Send an all-note-off CC message to the midi output port.
   (shell-command (concat "aplaymidi -p " midi-output-port
-                         " ~/.emacs.d/personal/common/all-off.midi")))
+                         " ~/.emacs.d/config/all-off.midi")))
 
 ;; MIDI Event LilyPond Handlers
 

@@ -132,7 +132,10 @@
 (use-package whitespace
   :custom
   (whitespace-line-column 80 "limit line length")
-  (whitespace-style '(face tabs empty trailing lines-tail)))
+  (whitespace-style '(face tabs trailing lines-tail
+                           ;; Empty lines at end of file are over-zealously highlighted
+                           ;; empty
+                           )))
 
 ;; bookmarks
 (use-package bookmark
@@ -164,7 +167,7 @@
   :straight t
   :custom
   (sp-base-key-bindings 'paredit)
-  (sp-autoskip-closing-pair 'always)
+  (sp-autoskip-closing-pair 'always-end)
   (sp-hybrid-kill-entire-symbol nil)
   :config
   (require 'smartparens-config)

@@ -37,7 +37,7 @@
 (use-package auctex
   :straight t
   :hook ((LaTeX-mode . abbrev-mode)
-         (LaTeX-mode . smartparens-mode)
+         ;;(LaTeX-mode . smartparens-mode)
          (LaTeX-mode . LaTeX-math-mode))
   :custom
   (TeX-auto-save t)

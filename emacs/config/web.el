@@ -36,8 +36,8 @@
   (js-indent-level 2)
   (js2-bounce-indent-p nil)
   :mode
-  (("\\.js\\'" . js2-mode)
-   ("\\.pac\\'" . js2-mode))
+  (("\\.js\\'" . js2-minor-mode)
+   ("\\.pac\\'" . js2-minor-mode))
   :interpreter
   (("node" . js2-mode))
   :hook

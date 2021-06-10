@@ -38,3 +38,5 @@ https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/
 * Subcommands
   * `tmux ls` - list active sessions
   * `tmux kill-server` - kill all tmux sessions
+* Copy mode (scrolling back through buffer)
+  * `q` - exit copy mode / return to prompt

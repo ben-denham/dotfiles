@@ -42,21 +42,23 @@
 ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
 (setq lsp-keymap-prefix "C-l")
 
-(use-package lsp-mode
-  :straight t
-  :hook ((lsp-mode . lsp-enable-which-key-integration)
-         (python-mode . lsp))
-  :commands lsp)
+;; (use-package lsp-mode
+;;   :straight t
+;;   :hook ((lsp-mode . lsp-enable-which-key-integration)
+;;          (python-mode . lsp))
+;;   :commands lsp)
 
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list
-  :config
-  (lsp-treemacs-sync-mode 1))
+;; (use-package lsp-ui
+;;   :straight t
+;;   :commands lsp-ui-mode)
+;; (use-package lsp-treemacs
+;;   :commands lsp-treemacs-errors-list
+;;   :config
+;;   (lsp-treemacs-sync-mode 1))
 
-(use-package dap-mode
-  :straight t)
-(use-package dap-python)
+;; (use-package dap-mode
+;;   :straight t)
+;; (use-package dap-python)
 
 
 ;; OCTAVE

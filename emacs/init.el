@@ -52,3 +52,4 @@
 (load (expand-file-name "lisp.el" config-dir))
 (load (expand-file-name "python.el" config-dir))
 (load (expand-file-name "music.el" config-dir))
+(put 'upcase-region 'disabled nil)

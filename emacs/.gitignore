@@ -10,3 +10,5 @@ transient/
 straight/
 .cache/
 emojis/
+.dap-breakpoints
+.lsp-session-v1

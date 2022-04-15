@@ -77,7 +77,6 @@ ZSH_CUSTOM=$ZSH_CONFDIR/custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    django
     docker
     docker-compose
     git

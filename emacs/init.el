@@ -24,14 +24,11 @@
 
 (load (expand-file-name "package-manager-setup.el" emacs-dir))
 
-
 ;; GENERAL PACKAGES
 
 (use-package magit
   :straight t)
-(use-package gitconfig-mode
-  :straight t)
-(use-package gitignore-mode
+(use-package git-modes
   :straight t)
 (use-package dockerfile-mode
   :straight t)
@@ -53,3 +50,8 @@
 (load (expand-file-name "python.el" config-dir))
 (load (expand-file-name "music.el" config-dir))
 (put 'upcase-region 'disabled nil)
+
+;; config changes made through the customize UI will be store here
+(setq custom-file (expand-file-name "custom.el" emacs-dir))
+(when (file-exists-p custom-file)
+  (load custom-file))

@@ -12,3 +12,8 @@ straight/
 emojis/
 .dap-breakpoints
 .lsp-session-v1
+recentf
+projectile-bookmarks.eld
+
+dir-to-pylsp.txt
+pylsp-sh.log

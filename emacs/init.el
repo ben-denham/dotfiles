@@ -10,8 +10,8 @@
 ;; warn when opening files bigger than 100MB
 (setq large-file-warning-threshold 100000000)
 
-;; config changes made through the customize UI will be store here
-(setq custom-file (expand-file-name "custom.el" emacs-dir))
+;; Increase for lsp-mode
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 ;; Patch security vulnerability in Emacs versions older than 25.3
 (when (version< emacs-version "25.3")

@@ -16,6 +16,12 @@ Most attention has been given to:
 
 Run: `./install.sh`
 
+### LSP Dependencies
+
+#### Python
+
+`pip install python-lsp-server[pylint]==1.4.1 pylsp-mypy==0.5.7`
+
 
 ## Running Emacs in a Terminal
 
@@ -71,5 +77,59 @@ C-c h r - Regex match current file
 C-c p - Search for files/buffers in and switch between projectile project
 
 C-c h b - Resume previous Helm session
+```
 
+### `lsp-mode`
+
+```
+C-c l - Keymap prefix
+C-c l r r - Rename the symbol (and all references to it).
+
+M-. - Peek definition of the identifier at point.
+M-; - Peek references to the identifier at point.
+M-, - Go back from peek
+
+C-: - Describe identifier at point (see signature and docstring)
+M-/ - Start auto-completion
+
+C-c e l - List flycheck errors
+C-M-; - List symbols in current workspace (not implemented for pylsp)
+C-M-. - List symbols in current workspace (not implemented for pylsp)
+C-c l g r - List references to the symbol at point in separate buffer.
+
+C-c f c - Origami - close node
+C-c f C - Origami - close all nodes
+C-c f o - Origami - open node recursively
+C-c f O - Origami - open all nodes
+C-c f u - Origami - undo
+C-c f r - Origami - redo
+```
+
+#### Custom LSP servers
+
+`lsp-mode` is configured to launch the Python `pylsp` server with
+`~/.emacs.d/pylsp.sh`, which will log to `~/.emacs.d/pylsp-sh.log` and
+search for directory-specific pylsp commands in
+`~/.emacs.d/dir-to-pylsp.txt`, which is formatted like:
+
+```
+/home/ben/phd/myproject make pylsp
+```
+
+If you need to change the mapping between the paths as seen by emacs
+and your LSP server (e.g. because your server is run in a Docker
+container with directories mounted in different locations), you can
+provide custom path mappings in a `.dir-locals.el`:
+
+```
+((nil . ((custom-lsp-path-mappings . (("" . "/home/jovyan/work"))))))
+```
+
+#### Switch Python Linter
+
+E.g. in `.dir-locals.el`:
+
+```
+((nil . ((lsp-pylsp-plugins-flake8-enabled . t)
+         (lsp-pylsp-plugins-pylint-enabled . nil))))
 ```

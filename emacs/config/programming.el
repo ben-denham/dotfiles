@@ -37,24 +37,88 @@
   (which-function-mode 1))
 
 
-;; LSP
+;; LSP and other IDE functionality
 
-;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-(setq lsp-keymap-prefix "C-l")
+(use-package lsp-mode
+  :straight t
+  :hook ((lsp-mode . lsp-enable-which-key-integration)
+         (python-mode . lsp-deferred))
+  :bind (("C-:" . lsp-describe-thing-at-point))
+  :init
+  ;; Disable some features
+  (setq lsp-enable-snippet nil
+        lsp-enable-symbol-highlighting nil
+        lsp-headerline-breadcrumb-enable nil)
+  ;; set prefix for lsp-command-keymap
+  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-pylsp-server-command (concat emacs-dir "pylsp.sh"))
+  ;; Python linting configuration
+  (setq lsp-pylsp-configuration-sources ["pylint" "flake8"]
+        lsp-pylsp-plugins-pycodestyle-enabled nil
+        lsp-pylsp-plugins-pydocstyle-enabled nil
+        lsp-pylsp-plugins-flake8-enabled nil
+        lsp-pylsp-plugins-pylint-enabled t))
 
-;; (use-package lsp-mode
-;;   :straight t
-;;   :hook ((lsp-mode . lsp-enable-which-key-integration)
-;;          (python-mode . lsp))
-;;   :commands lsp)
+(load (expand-file-name "custom-lsp-clients.el" config-dir))
 
-;; (use-package lsp-ui
-;;   :straight t
-;;   :commands lsp-ui-mode)
-;; (use-package lsp-treemacs
-;;   :commands lsp-treemacs-errors-list
-;;   :config
-;;   (lsp-treemacs-sync-mode 1))
+(use-package lsp-ui
+  :straight t
+  :commands lsp-ui-mode
+  :bind (("M-." . lsp-ui-peek-find-definitions)
+         ("M-;" . lsp-ui-peek-find-references)
+         ("C-M-;" . lsp-ui-imenu))
+  :config
+  (setq lsp-modeline-diagnostics-scope :workspace
+        lsp-ui-doc-enable nil
+        lsp-ui-sideline-show-diagnostics nil
+        lsp-signature-render-documentation nil))
+
+;; Navigation
+(use-package helm-lsp
+  :straight t
+  :config
+  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+
+;; Linting
+(defun set-flycheck-margins ()
+  (setq right-margin-width 1)
+  (flycheck-refresh-fringes-and-margins))
+(use-package flycheck
+  :straight t
+  :config
+  (define-key flycheck-mode-map flycheck-keymap-prefix nil)
+  (setq flycheck-keymap-prefix (kbd "C-c e"))
+  (define-key flycheck-mode-map flycheck-keymap-prefix
+    flycheck-command-map)
+  (global-flycheck-mode)
+  (setq-default flycheck-highlighting-mode nil)
+  (setq-default flycheck-indication-mode 'right-margin)
+  (add-hook 'flycheck-mode-hook #'set-flycheck-margins))
+
+;; Auto-complete
+(use-package company
+  :straight t
+  :bind (("M-/" . company-complete))
+  :config
+  (global-company-mode)
+  ;; Disable auto-start
+  (setq company-idle-delay nil))
+
+;; Code-folding
+(use-package origami
+  :straight t
+  :bind (("C-c f o" . origami-open-node-recursively)
+         ("C-c f c" . origami-close-node)
+         ("C-c f O" . origami-open-all-nodes)
+         ("C-c f C" . origami-close-all-nodes)
+         ("C-c f u" . origami-undo)
+         ("C-c f r" . origami-redo))
+  :config
+  (global-origami-mode))
+(use-package lsp-origami
+  :straight t
+  :config
+  (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
 
 ;; (use-package dap-mode
 ;;   :straight t)

@@ -222,6 +222,11 @@
   :config
   (popwin-mode 1))
 
+(use-package projectile
+  :straight t
+  :config
+  (projectile-global-mode))
+
 ;; (use-package direx
 ;;   :straight t
 ;;   :bind (("C-x C-j" . direx-project:jump-to-project-root-other-window)

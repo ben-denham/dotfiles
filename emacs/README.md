@@ -45,3 +45,31 @@ You may want to set the following settings in `Konsole`:
 3. `M-x straight-pull-all`
 4. `M-x straight-freeze-versions`
 5. Commit the updated `straight/versions/default.el`
+
+## Cheat Sheet
+
+### General
+
+```
+M-y - Browse kill ring
+```
+
+### Helm
+
+```
+C-o - Cycle through candidate sections
+RET - Default action on candidate
+TAB - See actions for candidate
+C-SPC - Mark candidate
+
+C-x C-f - File search
+  M-BACKSPACE - Navigate up dirs
+  C-s - Grep within file/dir
+    TAB - Select option to save search results to buffer
+C-c h o - String match current file
+C-c h r - Regex match current file
+C-c p - Search for files/buffers in and switch between projectile project
+
+C-c h b - Resume previous Helm session
+
+```

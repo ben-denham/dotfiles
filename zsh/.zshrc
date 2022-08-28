@@ -82,6 +82,7 @@ plugins=(
     git
     lein
     pip
+    poetry
     python
     pylint
     tmux
@@ -162,3 +163,5 @@ export TMUXINATOR_CONFIG=~/.tmuxinator
 
 # UTF-8 Support
 export LANG=en_NZ.UTF-8
+
+export PATH="$HOME/.poetry/bin:$PATH"

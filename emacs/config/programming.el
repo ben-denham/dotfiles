@@ -48,7 +48,8 @@
   ;; Disable some features
   (setq lsp-enable-snippet nil
         lsp-enable-symbol-highlighting nil
-        lsp-headerline-breadcrumb-enable nil)
+        lsp-headerline-breadcrumb-enable nil
+        lsp-enable-indentation nil)
   ;; set prefix for lsp-command-keymap
   (setq lsp-keymap-prefix "C-c l")
   (setq lsp-pylsp-server-command (concat emacs-dir "pylsp.sh"))

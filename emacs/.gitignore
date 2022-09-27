@@ -14,6 +14,7 @@ emojis/
 .lsp-session-v1
 recentf
 projectile-bookmarks.eld
+url/
 
 dir-to-pylsp.txt
 pylsp-sh.log

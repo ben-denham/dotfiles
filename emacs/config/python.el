@@ -45,3 +45,23 @@
 
 (use-package ein
   :straight t)
+
+
+(use-package jupyter
+  :straight t
+  :config
+  ;; Don't display these buffers when output is added to them, since we
+  ;; will be viewing rich output in the browser console session
+  (setq custom-jupyter-quiet-buffers '("*jupyter-display*" "*jupyter-output*" "*jupyter-traceback*"))
+  (when (not (boundp 'orig-jupyter-display-current-buffer-reuse-window))
+   (setq orig-jupyter-display-current-buffer-reuse-window (symbol-function 'jupyter-display-current-buffer-reuse-window)))
+  (defun jupyter-display-current-buffer-reuse-window (&optional msg-type alist &rest actions)
+    (when (not (member (buffer-name) custom-jupyter-quiet-buffers))
+      (apply orig-jupyter-display-current-buffer-reuse-window msg-type alist actions)))
+  ;; Add custom-jupyter-eval-sentence for evaluating contiguous blocks of code
+  (defun custom-jupyter-eval-sentence ()
+    (interactive)
+    (when-let* ((bounds (bounds-of-thing-at-point 'sentence)))
+      (cl-destructuring-bind (beg . end) bounds
+        (jupyter-eval-region beg end))))
+  (define-key jupyter-repl-interaction-mode-map (kbd "C-c C-c") #'custom-jupyter-eval-sentence))

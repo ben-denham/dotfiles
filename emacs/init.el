@@ -55,3 +55,4 @@
 (setq custom-file (expand-file-name "custom.el" emacs-dir))
 (when (file-exists-p custom-file)
   (load custom-file))
+(put 'downcase-region 'disabled nil)

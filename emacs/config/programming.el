@@ -32,9 +32,10 @@
   :hook ((prog-mode . smartparens-mode)))
 
 ;; show the name of the current function definition in the modeline
-(use-package which-func
-  :config
-  (which-function-mode 1))
+;; THIS IS REALLY SLOW ON BIG PYTHON FILES!
+;; (use-package which-func
+;;   :config
+;;   (which-function-mode 1))
 
 
 ;; LSP and other IDE functionality

@@ -107,20 +107,20 @@
   (setq company-idle-delay nil))
 
 ;; Code-folding
-(use-package origami
-  :straight t
-  :bind (("C-c f o" . origami-open-node-recursively)
-         ("C-c f c" . origami-close-node)
-         ("C-c f O" . origami-open-all-nodes)
-         ("C-c f C" . origami-close-all-nodes)
-         ("C-c f u" . origami-undo)
-         ("C-c f r" . origami-redo))
-  :config
-  (global-origami-mode))
-(use-package lsp-origami
-  :straight t
-  :config
-  (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
+;; (use-package origami
+;;   :straight t
+;;   :bind (("C-c f o" . origami-open-node-recursively)
+;;          ("C-c f c" . origami-close-node)
+;;          ("C-c f O" . origami-open-all-nodes)
+;;          ("C-c f C" . origami-close-all-nodes)
+;;          ("C-c f u" . origami-undo)
+;;          ("C-c f r" . origami-redo))
+;;   :config
+;;   (global-origami-mode))
+;; (use-package lsp-origami
+;;   :straight t
+;;   :config
+;;   (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable))
 
 ;; (use-package dap-mode
 ;;   :straight t)

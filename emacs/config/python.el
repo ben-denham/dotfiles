@@ -52,7 +52,7 @@
   :config
   ;; Don't display these buffers when output is added to them, since we
   ;; will be viewing rich output in the browser console session
-  (setq custom-jupyter-quiet-buffers '("*jupyter-display*" "*jupyter-output*" "*jupyter-traceback*"))
+  (setq custom-jupyter-quiet-buffers '("*jupyter-display*" "*jupyter-output*" "*jupyter-traceback*"  "*jupyter-result*" "*jupyter-error*"))
   (when (not (boundp 'orig-jupyter-display-current-buffer-reuse-window))
    (setq orig-jupyter-display-current-buffer-reuse-window (symbol-function 'jupyter-display-current-buffer-reuse-window)))
   (defun jupyter-display-current-buffer-reuse-window (&optional msg-type alist &rest actions)

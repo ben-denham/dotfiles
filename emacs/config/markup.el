@@ -22,7 +22,10 @@
                   (add-hook 'before-save-hook 'whitespace-cleanup nil t)))))
 
 (use-package markdown-mode
-  :straight t)
+  :straight t
+  :custom
+  (markdown-link-make-text-function (lambda (uri) uri))
+  (markdown-disable-tooltip-prompt t))
 
 (use-package flymd
   :straight t

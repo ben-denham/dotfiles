@@ -58,6 +58,9 @@
 ;; Newline at end of file
 (setq require-final-newline t)
 
+;; No double-space after period with fill-paragraph
+(setq sentence-end-double-space nil)
+
 ;; delete the selection with a keypress
 (delete-selection-mode t)
 
@@ -108,6 +111,9 @@
 
 ;; save desktop when idle
 (run-with-idle-timer 300 t 'desktop-save-in-desktop-dir)
+
+;; Do not create lockfiles (they annoy watchers like react app)
+(setq create-lockfiles nil)
 
 
 ;; CONFIGURING STANDARD PACKAGES
@@ -239,6 +245,8 @@
 
 (use-package treemacs
   :straight t
+  :config
+  (treemacs-follow-mode)
   :bind (("C-x C-j" . treemacs-select-window)
          ("C-x C-h" . treemacs)
          ("C-c C-p a" . treemacs-add-project-to-workspace)

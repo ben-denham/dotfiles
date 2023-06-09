@@ -47,8 +47,18 @@
     (define-key map (kbd "C-c o") 'timeclocking-out)
     map))
 
+(defvar timeclocking-highlights
+  '(("^i" . 'font-lock-constant-face)
+    ("^o" . 'font-lock-string-face)
+    ("  .*" . 'font-lock-variable-name-face)
+    ("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]" . 'font-lock-function-name-face)))
+
 (define-derived-mode timeclocking-mode fundamental-mode "Timeclocking"
   "Major mode for timeclock files."
-  (setq-local comment-start ";"))
+  (setq-local comment-start ";")
+  (setq-local font-lock-defaults '(timeclocking-highlights))
+  ;; Define ";" as the comment character, and "\n" to end a comment
+  (modify-syntax-entry ?\; "< b")
+  (modify-syntax-entry ?\n "> b"))
 
 (add-to-list 'auto-mode-alist '("\\.timelog" . timeclocking-mode))

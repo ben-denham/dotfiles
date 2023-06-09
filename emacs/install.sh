@@ -2,7 +2,7 @@
 
 echo "=== emacs configuration ==="
 
-sudo apt install emacs
+sudo apt install emacs27
 
 if [ -h ~/.emacs.d ]; then
     # Remove if existing symlink

@@ -198,7 +198,8 @@
 (use-package undo-tree
   :straight t
   :config
-  (global-undo-tree-mode))
+  (global-undo-tree-mode)
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
 
 ;; diff-hl - diff highlighting
 (use-package diff-hl

@@ -348,3 +348,6 @@
 (global-set-key (kbd "M->") '(lambda ()
                                (interactive)
                                (goto-char (point-max))))
+
+(use-package fireplace
+  :straight t)

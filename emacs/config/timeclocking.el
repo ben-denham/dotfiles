@@ -51,7 +51,7 @@
   '(("^i" . 'font-lock-constant-face)
     ("^o" . 'font-lock-string-face)
     ("  .*" . 'font-lock-variable-name-face)
-    ("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]" . 'font-lock-function-name-face)))
+    ("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9]" . 'font-lock-function-name-face)))
 
 (define-derived-mode timeclocking-mode fundamental-mode "Timeclocking"
   "Major mode for timeclock files."

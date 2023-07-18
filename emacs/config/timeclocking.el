@@ -21,7 +21,7 @@
   (or time (setq time (current-time)))
   (timeclocking--goto-newline-at-end)
   (if (equal (timeclocking--last-entry-type) ?i)
-      (insert (concat "o " (format-time-string "%F %R" time)))
+      (insert (concat "o " (format-time-string "%F %R" time) ":00"))
     (message "No previous i entry to clock out from")))
 
 (defun timeclocking-in (&optional time label comment)
@@ -39,7 +39,7 @@
   (when (equal (timeclocking--last-entry-type) ?i)
     (timeclocking-out time))
   (timeclocking--goto-newline-at-end)
-  (insert (concat "i " (format-time-string "%F %R" time) " " label comment)))
+  (insert (concat "i " (format-time-string "%F %R" time) ":00 " label comment)))
 
 (defvar timeclocking-mode-map
   (let ((map (make-sparse-keymap)))

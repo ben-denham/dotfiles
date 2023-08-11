@@ -33,4 +33,4 @@ fi
 ln -s "$SCRIPT_DIR/.tmuxinator" ~/.tmuxinator
 
 # Install tmux plugins
-~/.tmux/plugins/tpm/scripts/install_plugins.sh
+~/dotfiles/tmux/tpm/scripts/install_plugins.sh

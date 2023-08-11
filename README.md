@@ -6,7 +6,7 @@ Useful environment configuration for various applications.
 ## Installation
 
 ```
-git clone https://github.com/ben-denham/dotfiles ~/dotfiles
+git clone --recurse-submodules https://github.com/ben-denham/dotfiles ~/dotfiles
 ~/dotfiles/install.sh
 ```
 

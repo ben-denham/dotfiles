@@ -9,4 +9,7 @@ A `zsh` configuration based on
 
 ## Installation
 
+Download and install the Meslo Nerd Font patched for Powerlevel 10k:
+https://github.com/romkatv/powerlevel10k/blob/master/font.md
+
 Run: `./install.sh`

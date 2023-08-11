@@ -63,5 +63,5 @@
     (interactive)
     (when-let* ((bounds (bounds-of-thing-at-point 'sentence)))
       (cl-destructuring-bind (beg . end) bounds
-        (jupyter-eval-region nil beg end))))
+        (jupyter-eval-region beg end))))
   (define-key jupyter-repl-interaction-mode-map (kbd "C-c C-c") #'custom-jupyter-eval-sentence))

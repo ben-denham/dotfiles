@@ -7,7 +7,9 @@ history
 ido.hist
 places
 transient/
-straight/
+straight/build
+straight/repos
+straight/build-cache.el
 .cache/
 emojis/
 .dap-breakpoints

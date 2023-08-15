@@ -142,8 +142,11 @@ bindkey -e
 
 # 24-bit terminal support, see: https://github.com/syl20bnr/spacemacs/wiki/Terminal
 export TERM=xterm-24bit
-# Use wider-supported colours for ssh
+# Use more widely supported TERM/colours for `ssh`, `sudo bash`, and `az ssh`
+# (without this, backspace and other terminal commands may not work)
 alias ssh="TERM=xterm-256color ssh"
+alias sudo="TERM=xterm-256color sudo"
+alias az="TERM=xterm-256color az"
 
 # Treat each part of a path as a separate word
 autoload -U select-word-style

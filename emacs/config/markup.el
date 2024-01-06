@@ -27,6 +27,9 @@
   (markdown-link-make-text-function (lambda (uri) uri))
   (markdown-disable-tooltip-prompt t))
 
+(use-package mermaid-mode
+  :straight t)
+
 (use-package flymd
   :straight t
   :custom

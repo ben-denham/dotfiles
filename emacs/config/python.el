@@ -50,6 +50,7 @@
 (use-package jupyter
   :straight t
   :config
+  (setq jupyter-repl-echo-eval-p t)
   ;; Don't display these buffers when output is added to them, since we
   ;; will be viewing rich output in the browser console session
   (setq custom-jupyter-quiet-buffers '("*jupyter-display*" "*jupyter-output*" "*jupyter-traceback*"  "*jupyter-result*" "*jupyter-error*"))

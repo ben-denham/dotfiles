@@ -167,4 +167,9 @@ export TMUXINATOR_CONFIG=~/.tmuxinator
 # UTF-8 Support
 export LANG=en_NZ.UTF-8
 
+# Add poetry binaries to path
 export PATH="$HOME/.poetry/bin:$PATH"
+
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"

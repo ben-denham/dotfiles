@@ -21,12 +21,13 @@
   ;; could be llm-openai for example
   (require 'llm-openai)
   (setopt ellama-provider
-          (make-llm-openai-compatible
-           :url "http://localhost:9000"))
+        (make-llm-openai-compatible
+         :url "http://localhost:9000/v1/"))
   ;; customize display buffer behaviour
   ;; see ~(info "(elisp) Buffer Display Action Functions")~
   (setopt ellama-chat-display-action-function #'display-buffer-full-frame)
   (setopt ellama-instant-display-action-function #'display-buffer-at-bottom)
+  (setq llm-warn-on-nonfree nil)
   :config
   ;; send last message in chat buffer with C-c C-c
   (add-hook 'org-ctrl-c-ctrl-c-hook #'ellama-chat-send-last-message))

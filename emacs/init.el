@@ -50,6 +50,7 @@
 (load (expand-file-name "python.el" config-dir))
 (load (expand-file-name "music.el" config-dir))
 (load (expand-file-name "timeclocking.el" config-dir))
+(load (expand-file-name "llms.el" config-dir))
 (put 'upcase-region 'disabled nil)
 
 ;; config changes made through the customize UI will be store here

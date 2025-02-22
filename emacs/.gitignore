@@ -17,6 +17,7 @@ emojis/
 recentf
 projectile-bookmarks.eld
 url/
+eln-cache/
 
 dir-to-pylsp.txt
 pylsp-sh.log

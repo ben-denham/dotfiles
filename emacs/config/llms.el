@@ -1,3 +1,35 @@
+;; You need to run M-x copilot-install-server and M-x copilot-login
+;; Logout with: M-x copilot-logout
+(use-package copilot
+  :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+  :ensure t)
+
+(use-package shell-maker
+  :straight (:host github :repo "xenodium/shell-maker" :files ("shell-maker.el")))
+;; Logout by deleting ~/.config/copilot-chat and ~/.cache/copilot-chat
+(use-package copilot-chat
+  :straight (:host github :repo "chep/copilot-chat.el" :files ("*.el"))
+  :after (request org markdown-mode))
+
+(use-package gptel
+  :ensure t
+  :init
+  (setq gptel-model 'coder)
+  (setq gptel-backend (gptel-make-openai "llama-cpp"
+                        :stream t
+                        :protocol "http"
+                        :host "localhost:9000"
+                        :models '(coder)))
+  ; NOTE: This is not GitHub Copilot, just GitHub Models:
+  ;; (setq gptel-model 'gpt-4o)
+  ;; (setq gptel-backend (gptel-make-openai "GitHub Models"
+  ;;                       :host "models.inference.ai.azure.com"
+  ;;                       :endpoint "/chat/completions?api-version=2024-05-01-preview"
+  ;;                       :stream t
+  ;;                       :key "TODO"
+  ;;                       :models '(gpt-4o)))
+  )
+
 (use-package aidermacs
   :straight (:host github :repo "MatthewZMD/aidermacs" :files ("*.el"))
   :config

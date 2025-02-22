@@ -11,3 +11,17 @@
    '(flyspell-incorrect ((t (:foreground "rosybrown1" :underline nil :weight normal :slant italic))))))
 
 (enable-theme 'zenburn)
+
+(setq transparency-enabled nil)
+(defun toggle-transparency ()
+  (interactive)
+  (if transparency-enabled
+      (progn
+        (set-background-color "#3f3f3f")
+        (set-face-background 'hl-line "#383838")
+        (setq transparency-enabled nil))
+    (progn
+      (set-background-color "ARGBBB000000")
+      (set-face-background 'hl-line "ARGBBB000000")
+      (setq transparency-enabled t))))
+(global-set-key (kbd "C-c C-t") 'toggle-transparency)

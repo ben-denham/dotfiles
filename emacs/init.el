@@ -33,6 +33,9 @@
 (use-package dockerfile-mode
   :straight t)
 
+;; SYSTEM-INSTALLED PACKAGES
+
+(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp"))
 
 ;; CONFIGURATION SECTIONS
 

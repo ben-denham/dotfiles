@@ -61,3 +61,6 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 (put 'downcase-region 'disabled nil)
+
+; Backspace backwards
+(normal-erase-is-backspace-mode 0)

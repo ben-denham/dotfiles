@@ -1,8 +1,8 @@
 (use-package php-mode
   :straight t)
 
-(use-package drupal-mode
-  :straight t)
+;; (use-package drupal-mode
+;;   :straight t)
 
 (use-package geben
   :straight t)
